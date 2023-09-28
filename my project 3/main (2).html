@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <style>
+   * {
+      margin: 0;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url('https://wallpapers.com/images/hd/hd-sunset-at-beach-w5ped7x6g3uo2o76.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      color: #14e025;
+      margin-bottom: 50px;
+    }
+
+    #content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    
+      border-radius: 10px;
+      padding: 40px;
+      background-image: url('');
+    }
+
+    #taskList {
+      color: #ffffff;
+      list-style-type: none;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      background-color: #000000;
+      padding: 10px 20px;
+      text-align: right;
+      width: 100%;
+    }
+
+    #logoutButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ff5a5f;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #logoutButton:hover {
+      background-color: #e53935;
+    }
+
+    #addTaskButton {
+      background-color: #e90505;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #addTaskButton:hover {
+      background-color: #be6908;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <h1 style="font-family: lucida handwriting;">TO_DO_LIST_</h1>
+    <h1 style="font-family: lucida handwriting;">Hello Jeevanth...🤞</h1>
+    <button id="logoutButton" onclick="logout()">Logout</button>
+    <input type="text" id="taskInput" placeholder="New Task...">
+    <br>
+    <input type="datetime-local" id="dueDateInput">
+    <br>
+    <br>
+    <br>
+    <br>
+    <button id="addTaskButton" onclick="addTask()">Add Task</button>
+    <br>
+    <ul id="taskList"></ul>
+  </div>
+  <footer>
+    &copy; 2023 To-Do List
+  </footer>
+  <script>
+    function addTask() {
+      var taskInput = document.getElementById("taskInput");
+      var dueDateInput = document.getElementById("dueDateInput");
+      var taskList = document.getElementById("taskList");
+
+      var newTask = document.createElement("li");
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      var taskName = document.createElement("span");
+      var dueDate = document.createElement("span");
+      var dueTime = document.createElement("span");
+
+      taskName.innerText = taskInput.value;
+      dueDate.innerText = "Due: " + formatDate(dueDateInput.value);
+
+      var currentTime = new Date().toLocaleTimeString();
+      var formattedTime = formatTime(currentTime);
+      dueTime.innerText = "Time: " + formattedTime;
+
+      newTask.appendChild(checkbox);
+      newTask.appendChild(taskName);
+      newTask.appendChild(dueDate);
+      newTask.appendChild(dueTime);
+
+      var deleteButton = document.createElement("button");
+      deleteButton.innerText = "Delete";
+      deleteButton.onclick = function() {
+        taskList.removeChild(newTask);
+      };
+      newTask.appendChild(deleteButton);
+
+      taskList.appendChild(newTask);
+
+      taskInput.value = "";
+      dueDateInput.value = "";
+    }
+
+    function formatDate(dateString) {
+      var date = new Date(dateString);
+      var options = { year: "numeric", month: "long", day: "numeric" };
+      return date.toLocaleDateString(undefined, options);
+    }
+
+    function formatTime(timeString) {
+      var [hour, minute, second] = timeString.split(":");
+      var period = hour >= 12 ? "PM" : "AM";
+      hour = hour % 12 || 12;
+      return `${hour}:${minute}:${second} ${period}`;
+    }
+
+    function logout() {
+      window.location.href = "login.html";
+    }
+    
+  </script>
+  
+</body>
+</html>
